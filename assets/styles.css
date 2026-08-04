@@ -233,9 +233,9 @@ input:focus-visible,
 .dropdown-menu {
   list-style: none;
   margin: 0;
-  padding: 0.5rem;
+  padding: 0.75rem 0.5rem 0.5rem;
   position: absolute;
-  top: calc(100% + 0.4rem);
+  top: 100%;
   left: 0;
   background: var(--white);
   border: 1px solid var(--border);
@@ -256,6 +256,14 @@ input:focus-visible,
 }
 .dropdown-menu a:hover { background: var(--soft-blue); }
 .dropdown-menu a[aria-current="page"] { background: var(--soft-blue); font-weight: 700; }
+
+/* Open the dropdown on hover for people using a mouse/trackpad. Touch and
+   keyboard users still get the click/Enter toggle above; this media query
+   excludes touchscreens, which don't have reliable hover. */
+@media (hover: hover) and (pointer: fine) {
+  .nav-item-dropdown:hover .dropdown-menu { display: block; }
+  .nav-item-dropdown:hover .nav-caret { transform: rotate(180deg); }
+}
 
 @media (max-width: 900px) {
   .nav-toggle { display: inline-flex; }
@@ -508,22 +516,16 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 2.6rem 0
   margin-bottom: 0.7rem;
 }
 .chapter-note p { font-family: var(--font-hand); font-size: 1.35rem; line-height: 1.35; color: var(--navy-900); margin-bottom: 0; }
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.8rem;
-}
-.photo-grid img {
+.chapter-grid img {
   width: 100%;
-  height: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   box-shadow: 0 4px 10px rgba(15,42,74,0.12);
 }
-.photo-grid.two-only { grid-column: span 2; }
-.chapter-grid img.wide { grid-column: span 2; aspect-ratio: 16 / 7; object-fit: cover; }
+.chapter-grid img.wide { grid-column: span 2; aspect-ratio: 16 / 7; }
 @media (max-width: 760px) {
   .chapter-grid img.wide { grid-column: auto; aspect-ratio: 4 / 3; }
 }
